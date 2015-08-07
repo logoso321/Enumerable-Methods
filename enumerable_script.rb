@@ -1,5 +1,5 @@
 require "./enumerable"
 
-a = [3,2,4,5]
-b = a.my_none?{|x| x==4}
+a = [2,2,1,1]
+b = a.my_inject(1){|product, n| product * n}
 print(b)

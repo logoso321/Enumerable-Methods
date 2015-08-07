@@ -60,3 +60,59 @@ def my_none?
 	end
 	return true
 end
+
+public
+def my_count(num = nil)
+	count = 0
+	if(num == nil && block_given? == false)
+		return self.length
+	elsif(block_given? == true)
+		for i in self
+			if(yield(i) == true)
+				count += 1
+			end
+		end
+	end
+	for i in self
+		if(i == num)
+			count += 1
+		end
+	end
+	return count
+end
+
+public
+def my_map()
+	temp = 0
+	returnArray = []
+	return self unless block_given?
+	for i in self
+		temp = yield(i)
+		returnArray << temp
+	end
+	return returnArray
+end
+
+public
+def my_inject(num = nil)
+	returnVal = self.first
+	temp = returnVal
+
+	if(num == nil && block_given?)
+		for i in self
+			returnVal = yield(returnVal, i)
+		end
+		return returnVal - temp
+
+	elsif(block_given?)
+		returnVal = num
+		for i in self
+			returnVal = yield(returnVal, i)
+		end
+		return returnVal
+
+	elsif(block_given? == false)
+		return self
+	end
+
+end
